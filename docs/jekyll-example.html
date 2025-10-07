@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jekyll Configuration Example - GitHub Pages</title>
+    <style>
+        body {
+            font-family: Georgia, serif;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fafafa;
+            color: #333;
+        }
+        .container {
+            background: white;
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #1a1a1a;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+        }
+        .jekyll-feature {
+            background: #f8f9fa;
+            border-left: 4px solid #28a745;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: "Courier New", monospace;
+        }
+        pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1.5rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            line-height: 1.5;
+        }
+        pre code {
+            background: transparent;
+            padding: 0;
+            color: inherit;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.5rem 1rem;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .back-link:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Jekyll on GitHub Pages</h1>
+        <p><em>Understanding Jekyll configuration and its impact on your GitHub Pages site</em></p>
+
+        <h2>What is Jekyll?</h2>
+        <p>Jekyll is a static site generator that's built into GitHub Pages. It transforms plain text into static websites and blogs without databases, allowing you to use templates, layouts, and dynamic content generation.</p>
+
+        <div class="jekyll-feature">
+            <strong>Key Benefit:</strong> Write content in Markdown, use layouts and includes, and let Jekyll generate the final HTML automatically.
+        </div>
+
+        <h2>_config.yml Configuration</h2>
+        <p>The <code>_config.yml</code> file is the heart of Jekyll configuration. Here are key options:</p>
+
+        <pre><code># Basic Site Settings
+title: Your Site Name
+description: A brief description
+author: Your Name
+email: your-email@example.com
+
+# Theme Configuration
+theme: minima
+# or use remote theme:
+# remote_theme: owner/theme-repo
+
+# URL Settings
+baseurl: "/project-name"  # for project pages
+url: "https://username.github.io"
+
+# Build Settings
+markdown: kramdown
+highlighter: rouge
+
+# Plugins (GitHub Pages supports these)
+plugins:
+  - jekyll-feed          # RSS feed
+  - jekyll-seo-tag       # SEO optimization
+  - jekyll-sitemap       # Sitemap generation
+  - jekyll-mentions      # @mentions
+  - jekyll-redirect-from # Redirect support
+  - jekyll-paginate      # Pagination
+
+# Permalink Structure
+permalink: /:categories/:year/:month/:day/:title/
+# or: pretty, date, ordinal, none</code></pre>
+
+        <h2>Front Matter</h2>
+        <p>Jekyll uses YAML front matter to define metadata for pages and posts:</p>
+
+        <pre><code>---
+layout: post
+title: "My Blog Post"
+date: 2025-01-15 10:30:00 -0800
+categories: tutorial jekyll
+tags: [github-pages, static-site]
+author: Mike
+description: "A comprehensive guide to Jekyll"
+---
+
+Your content starts here...</code></pre>
+
+        <h2>Liquid Templating</h2>
+        <p>Jekyll uses Liquid for templating. Common patterns:</p>
+
+        <pre><code>&lt;!-- Variables --&gt;
+{{ page.title }}
+{{ site.author }}
+{{ content }}
+
+&lt;!-- Conditionals --&gt;
+{% if page.featured %}
+  &lt;div class="featured"&gt;Featured Post&lt;/div&gt;
+{% endif %}
+
+&lt;!-- Loops --&gt;
+{% for post in site.posts %}
+  &lt;h2&gt;{{ post.title }}&lt;/h2&gt;
+{% endfor %}
+
+&lt;!-- Includes --&gt;
+{% include header.html %}
+{% include footer.html %}</code></pre>
+
+        <h2>Directory Structure</h2>
+        <pre><code>repository/
+├── _config.yml          # Jekyll configuration
+├── _layouts/            # Page templates
+│   ├── default.html
+│   └── post.html
+├── _includes/           # Reusable components
+│   ├── header.html
+│   └── footer.html
+├── _posts/              # Blog posts
+│   └── 2025-01-15-my-post.md
+├── _sass/               # Sass stylesheets
+│   └── main.scss
+├── assets/              # Static files
+│   ├── css/
+│   └── images/
+└── index.md             # Homepage</code></pre>
+
+        <h2>Supported Themes</h2>
+        <p>GitHub Pages supports several official themes without additional setup:</p>
+        <ul>
+            <li><code>minima</code> - Clean and simple default theme</li>
+            <li><code>jekyll-theme-cayman</code> - Project page theme with prominent header</li>
+            <li><code>jekyll-theme-slate</code> - Dark theme with slate background</li>
+            <li><code>jekyll-theme-architect</code> - Architectural header design</li>
+            <li><code>jekyll-theme-minimal</code> - Minimal sidebar theme</li>
+            <li><code>jekyll-theme-dinky</code> - Compact with left sidebar</li>
+        </ul>
+
+        <div class="jekyll-feature">
+            <strong>Note:</strong> You can also use any remote theme from GitHub by using <code>remote_theme: username/repo</code> in your <code>_config.yml</code>.
+        </div>
+
+        <h2>Jekyll vs Plain HTML</h2>
+        <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+            <tr style="background: #f8f9fa;">
+                <th style="padding: 0.5rem; border: 1px solid #dee2e6;">Feature</th>
+                <th style="padding: 0.5rem; border: 1px solid #dee2e6;">Plain HTML</th>
+                <th style="padding: 0.5rem; border: 1px solid #dee2e6;">Jekyll</th>
+            </tr>
+            <tr>
+                <td style="padding: 0.5rem; border: 1px solid #dee2e6;">Setup Complexity</td>
+                <td style="padding: 0.5rem; border: 1px solid #dee2e6;">Very Simple</td>
+                <td style="padding: 0.5rem; border: 1px solid #dee2e6;">Moderate</td>
+            </tr>
+            <tr>
+                <td style="padding: 0.5rem; border: 1px solid #dee2e6;">Content Format</td>
+                <td style="padding: 0.5rem; border: 1px solid #dee2e6;">HTML</td>
+                <td style="padding: 0.5rem; border: 1px solid #dee2e6;">Markdown/HTML</td>
+            </tr>
+            <tr>
+                <td style="padding: 0.5rem; border: 1px solid #dee2e6;">Templating</td>
+                <td style="padding: 0.5rem; border: 1px solid #dee2e6;">Manual</td>
+                <td style="padding: 0.5rem; border: 1px solid #dee2e6;">Automatic</td>
+            </tr>
+            <tr>
+                <td style="padding: 0.5rem; border: 1px solid #dee2e6;">Blogging Support</td>
+                <td style="padding: 0.5rem; border: 1px solid #dee2e6;">Manual</td>
+                <td style="padding: 0.5rem; border: 1px solid #dee2e6;">Built-in</td>
+            </tr>
+            <tr>
+                <td style="padding: 0.5rem; border: 1px solid #dee2e6;">Themes</td>
+                <td style="padding: 0.5rem; border: 1px solid #dee2e6;">DIY</td>
+                <td style="padding: 0.5rem; border: 1px solid #dee2e6;">Ready-made</td>
+            </tr>
+        </table>
+
+        <h2>Local Development</h2>
+        <p>Test your Jekyll site locally before pushing:</p>
+
+        <pre><code># Install Jekyll
+gem install bundler jekyll
+
+# Create Gemfile
+source 'https://rubygems.org'
+gem 'github-pages', group: :jekyll_plugins
+
+# Install dependencies
+bundle install
+
+# Serve locally
+bundle exec jekyll serve
+
+# View at http://localhost:4000</code></pre>
+
+        <a href="../index.html" class="back-link">← Back to Main Demo</a>
+    </div>
+</body>
+</html>

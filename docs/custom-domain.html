@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Domain Configuration - GitHub Pages</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .container {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #ecf0f1;
+        }
+        .step {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            border-left: 5px solid #667eea;
+        }
+        .step h3 {
+            margin-top: 0;
+            color: #667eea;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: "Courier New", monospace;
+            font-size: 0.9em;
+        }
+        pre {
+            background: #2d333b;
+            color: #adbac7;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+        }
+        .warning {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        .success {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid #dee2e6;
+        }
+        th {
+            background: #667eea;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.75rem 1.5rem;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+        .back-link:hover {
+            background: #5568d3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌐 Custom Domain Configuration</h1>
+        <p><em>Set up a custom domain for your GitHub Pages site</em></p>
+
+        <h2>Overview</h2>
+        <p>By default, GitHub Pages sites are available at <code>username.github.io</code> or <code>username.github.io/repository</code>. However, you can configure a custom domain like <code>www.example.com</code> or <code>example.com</code>.</p>
+
+        <h2>Step-by-Step Configuration</h2>
+
+        <div class="step">
+            <h3>Step 1: Choose Your Domain Type</h3>
+            <p>Decide which type of domain you want to use:</p>
+            <ul>
+                <li><strong>Apex Domain:</strong> <code>example.com</code> (no www)</li>
+                <li><strong>Subdomain:</strong> <code>www.example.com</code> or <code>blog.example.com</code></li>
+                <li><strong>Both:</strong> Configure both with redirect</li>
+            </ul>
+            <div class="success">
+                <strong>Recommendation:</strong> Use <code>www</code> subdomain for better flexibility and to avoid potential DNS issues.
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>Step 2: Add CNAME File to Repository</h3>
+            <p>Create a file named <code>CNAME</code> (all caps, no extension) in your repository root or docs folder (depending on your source):</p>
+            <pre><code># For www subdomain
+www.example.com
+
+# OR for apex domain
+example.com</code></pre>
+            <div class="warning">
+                <strong>Important:</strong> The CNAME file should contain only your domain name, nothing else!
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>Step 3: Configure DNS Records</h3>
+            <p>Log into your domain registrar's DNS management panel and add the appropriate records:</p>
+            
+            <h4>For Apex Domain (example.com):</h4>
+            <table>
+                <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>A</td>
+                    <td>@</td>
+                    <td>185.199.108.153</td>
+                </tr>
+                <tr>
+                    <td>A</td>
+                    <td>@</td>
+                    <td>185.199.109.153</td>
+                </tr>
+                <tr>
+                    <td>A</td>
+                    <td>@</td>
+                    <td>185.199.110.153</td>
+                </tr>
+                <tr>
+                    <td>A</td>
+                    <td>@</td>
+                    <td>185.199.111.153</td>
+                </tr>
+            </table>
+
+            <h4>For www Subdomain:</h4>
+            <table>
+                <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>CNAME</td>
+                    <td>www</td>
+                    <td>username.github.io</td>
+                </tr>
+            </table>
+
+            <h4>For Custom Subdomain (e.g., blog.example.com):</h4>
+            <table>
+                <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>CNAME</td>
+                    <td>blog</td>
+                    <td>username.github.io</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="step">
+            <h3>Step 4: Configure in GitHub Settings</h3>
+            <ol>
+                <li>Go to your repository settings</li>
+                <li>Navigate to "Pages" section</li>
+                <li>Under "Custom domain", enter your domain</li>
+                <li>Click "Save"</li>
+                <li>Wait for DNS check to complete (may take a few minutes)</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h3>Step 5: Enable HTTPS</h3>
+            <p>After DNS verification completes:</p>
+            <ol>
+                <li>Check "Enforce HTTPS" in Pages settings</li>
+                <li>Wait for SSL certificate provisioning (can take up to 24 hours)</li>
+                <li>Your site will be available over HTTPS</li>
+            </ol>
+            <div class="success">
+                <strong>Note:</strong> GitHub provides free SSL certificates via Let's Encrypt!
+            </div>
+        </div>
+
+        <h2>Troubleshooting DNS</h2>
+        
+        <div class="step">
+            <h3>Verify DNS Configuration</h3>
+            <p>Use command-line tools to verify your DNS setup:</p>
+            <pre><code># Check A records for apex domain
+dig example.com +noall +answer
+
+# Check CNAME record for subdomain
+dig www.example.com +noall +answer
+
+# Alternative (Windows)
+nslookup example.com
+nslookup www.example.com</code></pre>
+        </div>
+
+        <h2>Common DNS Configurations</h2>
+
+        <table>
+            <tr>
+                <th>Scenario</th>
+                <th>DNS Setup</th>
+                <th>CNAME File</th>
+            </tr>
+            <tr>
+                <td>Only www subdomain</td>
+                <td>CNAME: www → username.github.io</td>
+                <td>www.example.com</td>
+            </tr>
+            <tr>
+                <td>Only apex domain</td>
+                <td>4 A records → GitHub IPs</td>
+                <td>example.com</td>
+            </tr>
+            <tr>
+                <td>Both (apex redirects to www)</td>
+                <td>4 A records + CNAME for www</td>
+                <td>www.example.com</td>
+            </tr>
+            <tr>
+                <td>Custom subdomain</td>
+                <td>CNAME: subdomain → username.github.io</td>
+                <td>subdomain.example.com</td>
+            </tr>
+        </table>
+
+        <h2>Update Jekyll Configuration</h2>
+        <p>After setting up your custom domain, update <code>_config.yml</code>:</p>
+        <pre><code># _config.yml
+url: "https://www.example.com"  # your custom domain with protocol
+baseurl: ""  # empty for custom domains
+
+# Optional: enforce custom domain
+enforce_ssl: www.example.com</code></pre>
+
+        <h2>Common Issues and Solutions</h2>
+
+        <div class="warning">
+            <strong>Issue:</strong> "Domain is improperly configured"<br>
+            <strong>Solution:</strong> Wait 24-48 hours for DNS propagation, or check that DNS records are correctly configured.
+        </div>
+
+        <div class="warning">
+            <strong>Issue:</strong> HTTPS not available<br>
+            <strong>Solution:</strong> Ensure DNS is fully propagated (use dig/nslookup), then wait up to 24 hours for certificate provisioning.
+        </div>
+
+        <div class="warning">
+            <strong>Issue:</strong> Site shows 404 error<br>
+            <strong>Solution:</strong> Verify CNAME file is in the correct location (root or docs folder based on your Pages source setting).
+        </div>
+
+        <div class="warning">
+            <strong>Issue:</strong> Old domain still shows<br>
+            <strong>Solution:</strong> Clear browser cache or test in incognito mode. DNS changes can be cached.
+        </div>
+
+        <h2>Best Practices</h2>
+        <ul>
+            <li>Always use HTTPS for security and SEO benefits</li>
+            <li>Set up both apex and www subdomain, redirect one to the other</li>
+            <li>Use DNS provider with fast propagation (Cloudflare, DNS Made Easy)</li>
+            <li>Monitor SSL certificate expiration (GitHub auto-renews)</li>
+            <li>Test site on multiple devices after DNS changes</li>
+            <li>Keep CNAME file in version control</li>
+        </ul>
+
+        <div class="success">
+            <strong>Pro Tip:</strong> Using Cloudflare? You can use their proxy (orange cloud) for additional security and CDN benefits, but it may require additional configuration for SSL.
+        </div>
+
+        <a href="../index.html" class="back-link">← Back to Main Demo</a>
+    </div>
+</body>
+</html>

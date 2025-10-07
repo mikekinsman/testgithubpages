@@ -1,0 +1,103 @@
+# GitHub Pages Configuration Demo
+# This file demonstrates various Jekyll configuration options
+
+# Site settings
+title: GitHub Pages Configuration Demo
+description: A comprehensive demonstration of GitHub Pages configuration options and their impacts
+author: Mike Kinsman
+
+# Theme configuration
+# GitHub Pages supports these themes out of the box:
+# - minima (default)
+# - jekyll-theme-cayman
+# - jekyll-theme-slate
+# - jekyll-theme-architect
+# - jekyll-theme-dinky
+# - jekyll-theme-minimal
+# - jekyll-theme-modernist
+# - jekyll-theme-leap-day
+# - jekyll-theme-merlot
+# - jekyll-theme-midnight
+# - jekyll-theme-time-machine
+# - jekyll-theme-tactile
+theme: minima
+
+# URL configuration
+# For project pages (username.github.io/repository):
+baseurl: "/testgithubpages"  # the subpath of your site, e.g. /blog
+url: "https://mikekinsman.github.io"  # the base hostname & protocol
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Permalink structure
+# Options: date, pretty, ordinal, none, or custom
+permalink: pretty
+
+# Collections (for organizing content)
+collections:
+  examples:
+    output: true
+    permalink: /examples/:name/
+
+# Front Matter Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "Mike Kinsman"
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .git
+  - .github
+  - README.md
+  - LICENSE
+
+# Include files that start with underscore
+include:
+  - _pages
+
+# Timezone
+timezone: America/Los_Angeles
+
+# Pagination (requires jekyll-paginate plugin)
+# paginate: 10
+# paginate_path: "/blog/page:num/"
+
+# Social media and SEO
+twitter:
+  username: mikekinsman
+  card: summary
+
+github:
+  repository_url: https://github.com/mikekinsman/testgithubpages
+  owner_url: https://github.com/mikekinsman
+
+# Custom variables (accessible via site.variable_name)
+show_examples: true
+enable_comments: false
+analytics_id: ""
+
+# Conversion
+safe: true
+lsi: false
+incremental: false
