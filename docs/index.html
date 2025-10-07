@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docs Folder Example - GitHub Pages</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 0.5rem;
+        }
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .code-block {
+            background: #263238;
+            color: #aed581;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #3498db;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📁 Docs Folder Deployment Example</h1>
+        
+        <div class="info-box">
+            <strong>This page is served from the /docs folder!</strong>
+            <p>This demonstrates the "Deploy from /docs" GitHub Pages configuration option.</p>
+        </div>
+
+        <h2>Why Use /docs Folder?</h2>
+        <ul>
+            <li><strong>Separation:</strong> Keep your documentation separate from source code</li>
+            <li><strong>Organization:</strong> Clear structure for projects with both code and docs</li>
+            <li><strong>Simple Setup:</strong> No need for separate branches or build processes</li>
+            <li><strong>Version Control:</strong> Documentation stays in sync with code versions</li>
+        </ul>
+
+        <h2>Configuration Steps</h2>
+        <ol>
+            <li>Create a <code>/docs</code> folder in your repository root</li>
+            <li>Add your HTML files, starting with <code>index.html</code></li>
+            <li>Go to repository Settings → Pages</li>
+            <li>Select "Deploy from a branch"</li>
+            <li>Choose "main" branch and "/docs" folder</li>
+            <li>Save and wait for deployment</li>
+        </ol>
+
+        <h2>Directory Structure</h2>
+        <div class="code-block">
+repository-root/
+├── src/                 # Your application source code
+│   ├── index.js
+│   └── app.js
+├── docs/                # GitHub Pages content (this folder!)
+│   ├── index.html       # Landing page
+│   ├── guide.html       # Documentation pages
+│   └── assets/          # CSS, images, etc.
+│       └── style.css
+├── README.md            # Repository readme
+└── _config.yml          # Jekyll config (optional)
+        </div>
+
+        <h2>Best Practices</h2>
+        <ul>
+            <li>Always include an <code>index.html</code> as the entry point</li>
+            <li>Use relative paths for links within docs folder</li>
+            <li>Consider adding a <code>404.html</code> for custom error pages</li>
+            <li>Organize assets in subfolders (css/, js/, images/)</li>
+            <li>Keep documentation in sync with code changes</li>
+        </ul>
+
+        <div class="info-box">
+            <strong>Pro Tip:</strong> You can use both static HTML (like this page) and Jekyll templates in the /docs folder. GitHub Pages will process Jekyll files automatically!
+        </div>
+
+        <a href="../index.html" class="back-link">← Back to Main Demo Page</a>
+    </div>
+</body>
+</html>

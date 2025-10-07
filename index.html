@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Pages Configuration Demo</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f6f8fa;
+        }
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        h1 {
+            margin: 0 0 0.5rem 0;
+        }
+        .subtitle {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        .config-section {
+            background: white;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .config-section h2 {
+            color: #24292e;
+            border-bottom: 2px solid #e1e4e8;
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+        }
+        .config-option {
+            background: #f6f8fa;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-left: 4px solid #0366d6;
+            border-radius: 4px;
+        }
+        .config-option h3 {
+            margin-top: 0;
+            color: #0366d6;
+        }
+        code {
+            background: #f6f8fa;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 0.9em;
+        }
+        pre {
+            background: #2d333b;
+            color: #adbac7;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+        }
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        .example-link {
+            display: inline-block;
+            background: #0366d6;
+            color: white;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            border-radius: 6px;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+        }
+        .example-link:hover {
+            background: #0256c2;
+        }
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e1e4e8;
+            color: #586069;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>GitHub Pages Configuration Options Demo</h1>
+        <p class="subtitle">A comprehensive guide to GitHub Pages configuration and deployment options</p>
+    </header>
+
+    <div class="config-section">
+        <h2>🚀 Deployment Source Options</h2>
+        <p>GitHub Pages can be deployed from different sources. Each has different use cases:</p>
+        
+        <div class="config-option">
+            <h3>1. Deploy from Root Directory (main branch /)</h3>
+            <p>Content is served directly from the root of your main branch.</p>
+            <p><strong>Best for:</strong> Simple single-page sites, landing pages, project documentation</p>
+            <p><strong>Configuration:</strong> Settings → Pages → Source: Deploy from branch → Branch: main → Folder: / (root)</p>
+            <pre><code>Repository Structure:
+/
+├── index.html
+├── about.html
+├── style.css
+└── README.md</code></pre>
+        </div>
+
+        <div class="config-option">
+            <h3>2. Deploy from /docs Directory (main branch /docs)</h3>
+            <p>Content is served from the <code>/docs</code> folder, keeping source code separate from documentation.</p>
+            <p><strong>Best for:</strong> Projects with both code and documentation, organized documentation sites</p>
+            <p><strong>Configuration:</strong> Settings → Pages → Source: Deploy from branch → Branch: main → Folder: /docs</p>
+            <pre><code>Repository Structure:
+/
+├── src/           (your application code)
+├── docs/          (GitHub Pages content)
+│   ├── index.html
+│   └── assets/
+└── README.md</code></pre>
+        </div>
+
+        <div class="config-option">
+            <h3>3. Deploy from gh-pages Branch</h3>
+            <p>Content is served from a dedicated <code>gh-pages</code> branch, completely separate from your main codebase.</p>
+            <p><strong>Best for:</strong> Generated documentation, build artifacts, keeping deployment separate from development</p>
+            <p><strong>Configuration:</strong> Settings → Pages → Source: Deploy from branch → Branch: gh-pages → Folder: / (root)</p>
+            <pre><code># Create and use gh-pages branch
+git checkout --orphan gh-pages
+git reset --hard
+# Add your content
+git add .
+git commit -m "Initial GitHub Pages commit"
+git push origin gh-pages</code></pre>
+        </div>
+
+        <div class="config-option">
+            <h3>4. GitHub Actions Deployment</h3>
+            <p>Use custom workflows to build and deploy your site with full control over the build process.</p>
+            <p><strong>Best for:</strong> Complex build processes, multiple frameworks, custom deployment logic</p>
+            <p><strong>Configuration:</strong> Settings → Pages → Source: GitHub Actions</p>
+            <pre><code># .github/workflows/deploy.yml
+name: Deploy GitHub Pages
+on:
+  push:
+    branches: [main]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build
+        run: npm run build
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3</code></pre>
+        </div>
+    </div>
+
+    <div class="config-section">
+        <h2>🎨 Jekyll Configuration Options</h2>
+        <p>GitHub Pages natively supports Jekyll. Configure it using <code>_config.yml</code>:</p>
+        
+        <div class="config-option">
+            <h3>Basic Jekyll Configuration</h3>
+            <pre><code># _config.yml
+title: Your Site Title
+description: Your site description
+theme: minima
+baseurl: ""  # subpath of your site, e.g., /blog
+url: "https://username.github.io"  # base hostname
+
+# Build settings
+markdown: kramdown
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Exclude files from processing
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock</code></pre>
+        </div>
+
+        <div class="config-option">
+            <h3>Supported Jekyll Themes</h3>
+            <p>GitHub Pages supports several built-in themes:</p>
+            <ul>
+                <li><code>minima</code> - Default theme, clean and simple</li>
+                <li><code>jekyll-theme-cayman</code> - Project page theme</li>
+                <li><code>jekyll-theme-slate</code> - Dark theme</li>
+                <li><code>jekyll-theme-architect</code> - Header-focused theme</li>
+                <li><code>jekyll-theme-dinky</code> - Sidebar theme</li>
+                <li><code>jekyll-theme-minimal</code> - Minimal theme</li>
+            </ul>
+            <div class="note">
+                <strong>Note:</strong> To use a theme, add it to <code>_config.yml</code>: <code>theme: jekyll-theme-cayman</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="config-section">
+        <h2>🌐 Custom Domain Configuration</h2>
+        
+        <div class="config-option">
+            <h3>Setting Up a Custom Domain</h3>
+            <ol>
+                <li>Add a <code>CNAME</code> file to your repository root with your domain</li>
+                <li>Configure DNS records at your domain provider</li>
+                <li>Enable HTTPS in repository settings</li>
+            </ol>
+            <pre><code># CNAME file
+www.example.com
+
+# DNS Configuration (at your domain provider)
+# For apex domain (example.com):
+A     @     185.199.108.153
+A     @     185.199.109.153
+A     @     185.199.110.153
+A     @     185.199.111.153
+
+# For www subdomain:
+CNAME www   username.github.io</code></pre>
+        </div>
+    </div>
+
+    <div class="config-section">
+        <h2>⚙️ Advanced Configuration</h2>
+        
+        <div class="config-option">
+            <h3>Base URL Configuration</h3>
+            <p>When deploying to a project page (<code>username.github.io/projectname</code>), configure the base URL:</p>
+            <pre><code># _config.yml
+baseurl: "/projectname"
+url: "https://username.github.io"
+
+# In HTML/Markdown, reference assets:
+{{ site.baseurl }}/assets/image.png
+{{ site.url }}{{ site.baseurl }}/page.html</code></pre>
+        </div>
+
+        <div class="config-option">
+            <h3>Permalink Configuration</h3>
+            <p>Control how URLs are structured for blog posts and pages:</p>
+            <pre><code># _config.yml
+permalink: /:categories/:year/:month/:day/:title:output_ext
+# or
+permalink: /blog/:title/
+# or
+permalink: pretty  # /category/year/month/day/title/</code></pre>
+        </div>
+
+        <div class="config-option">
+            <h3>Environment Variables</h3>
+            <p>Jekyll provides environment-specific configuration:</p>
+            <pre><code># Different settings for development vs production
+# _config.yml (production)
+url: "https://username.github.io"
+
+# _config_dev.yml (development)
+url: "http://localhost:4000"
+
+# Run locally:
+jekyll serve --config _config.yml,_config_dev.yml</code></pre>
+        </div>
+    </div>
+
+    <div class="config-section">
+        <h2>📦 Static Site Generators</h2>
+        
+        <div class="config-option">
+            <h3>Supported Options Beyond Jekyll</h3>
+            <p>With GitHub Actions, you can use any static site generator:</p>
+            <ul>
+                <li><strong>Hugo</strong> - Fast Go-based generator</li>
+                <li><strong>Next.js</strong> - React framework with static export</li>
+                <li><strong>Gatsby</strong> - React-based static site generator</li>
+                <li><strong>VuePress</strong> - Vue-powered static site generator</li>
+                <li><strong>Docusaurus</strong> - Documentation-focused generator</li>
+                <li><strong>Eleventy (11ty)</strong> - Simpler JavaScript alternative</li>
+            </ul>
+            <div class="note">
+                <strong>Tip:</strong> Use GitHub Actions to build these frameworks and deploy to GitHub Pages
+            </div>
+        </div>
+    </div>
+
+    <div class="config-section">
+        <h2>🔍 Common Configuration Scenarios</h2>
+        
+        <div class="config-option">
+            <h3>Scenario 1: Simple Project Documentation</h3>
+            <p><strong>Use:</strong> /docs folder with Jekyll</p>
+            <p><strong>Why:</strong> Keeps docs with code, easy to maintain, no build step needed</p>
+        </div>
+
+        <div class="config-option">
+            <h3>Scenario 2: React/Vue Application</h3>
+            <p><strong>Use:</strong> GitHub Actions with build step</p>
+            <p><strong>Why:</strong> Requires build process, can optimize for production</p>
+        </div>
+
+        <div class="config-option">
+            <h3>Scenario 3: Personal Blog or Portfolio</h3>
+            <p><strong>Use:</strong> Root directory with Jekyll theme</p>
+            <p><strong>Why:</strong> Simple setup, built-in theming, blogging features</p>
+        </div>
+
+        <div class="config-option">
+            <h3>Scenario 4: Complex Multi-Environment Site</h3>
+            <p><strong>Use:</strong> gh-pages branch with GitHub Actions</p>
+            <p><strong>Why:</strong> Separation of concerns, automated deployments, environment-specific builds</p>
+        </div>
+    </div>
+
+    <div class="config-section">
+        <h2>📚 Example Pages in This Repository</h2>
+        <a href="docs/index.html" class="example-link">View Docs Example</a>
+        <a href="docs/jekyll-example.html" class="example-link">View Jekyll Example</a>
+        <a href="docs/custom-domain.html" class="example-link">View Custom Domain Example</a>
+    </div>
+
+    <footer>
+        <p>This is a demonstration repository for GitHub Pages configuration options.</p>
+        <p>Repository: <a href="https://github.com/mikekinsman/testgithubpages">mikekinsman/testgithubpages</a></p>
+    </footer>
+</body>
+</html>
